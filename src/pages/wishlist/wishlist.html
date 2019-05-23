@@ -1,0 +1,49 @@
+<!--
+  Generated template for the WishlistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="light">
+    <ion-title>wishlist</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openCart()">
+        <ion-icon name="cart"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <div *ngIf="favorites">
+    <ion-list>
+      <ion-item-sliding *ngFor="let fav of favorites" #item>
+        <ion-item>
+          <ion-thumbnail item-left>
+            <img src="{{fav.product.images['0'].src}}" alt="" srcset="">
+          </ion-thumbnail>
+          <h2>{{fav.product.name}}</h2>
+
+
+          <span [innerHTML]="fav.product.description.substr(0,50) + '...' "></span>
+          <span [innerHTML]="fav.product.price_html"></span>
+        </ion-item>
+        <ion-item-options side="right">
+          <button color="danger" ion-button (click)="deleteFavorite(fav.product.id)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+  </div>
+  <div [hidden]="favorites ">
+    <ion-spinner></ion-spinner>
+    <h4>Loading . . . Please Wait</h4>
+  </div>
+  <p class="swipe">Swipe left to delete</p>
+</ion-content>

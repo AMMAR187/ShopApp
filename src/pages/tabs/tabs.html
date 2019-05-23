@@ -1,0 +1,7 @@
+<ion-tabs [selectedIndex]="mySelectedIndex">
+  <ion-tab [root]="home" tabTitle="Home" tabIcon="home"></ion-tab>
+  <ion-tab [root]="Category" tabTitle="Category" tabIcon="md-clipboard"></ion-tab>
+  <ion-tab [root]="WishList" tabTitle="Favorites" tabIcon="heart"></ion-tab>
+  <ion-tab *ngIf="loggedIn" [root]="Account" tabTitle="Profile" tabIcon="contact"></ion-tab>
+  <ion-tab *ngIf="!loggedIn" [root]="Login" tabTitle="Profile" tabIcon="contact"></ion-tab>
+</ion-tabs>

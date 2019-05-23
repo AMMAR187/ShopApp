@@ -1,0 +1,169 @@
+<ion-header>
+
+  <ion-navbar color="light">
+    <!-- <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button> -->
+    <ion-title>Home</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="toggle()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="openCart()">
+        <ion-icon name="cart"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+  <ion-toolbar color="light">
+
+    <ion-searchbar *ngIf="toggled" [(ngModel)]="searchQuery" (search)="onSearch($event)"
+      (ionCancel)="cancelSearch($event)" (ionClear)="cancelSearch($event)" [showCancelButton]="true">
+    </ion-searchbar>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content no-padding>
+
+  <ion-card>
+
+    <ion-slides loop="true" autoplay="3000" pager>
+      <ion-slide *ngFor="let img of [1,2,4]">
+        <img src="./assets/images/{{img}}.jpg" />
+      </ion-slide>
+    </ion-slides>
+
+  </ion-card>
+
+  <ion-grid class="block cat">
+
+    <ion-row>
+
+      <ion-col col-12>
+        <p class="title">Categories</p>
+      </ion-col>
+
+      <ion-col *ngFor="let cat of Categories" col-4 style="text-align: center;">
+        <button ion-button clear large (click)="openCategory(cat.name)">
+          <ion-icon name="{{cat.icon}}"></ion-icon>
+        </button>
+        <p>
+          {{cat.name}}
+        </p>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+  <ion-grid>
+
+    <ion-row>
+
+      <ion-slides #productSlide>
+        <ion-slide *ngFor="let product of products">
+
+          <ion-card no-padding (click)="productDetails(product)">
+            <img src="{{product.images['0'].src}}" alt="" srcset="">
+            <h1 padding center>{{product.name}}</h1>
+            <p>
+              <span [innerHTML]="product.short_description.substr(0,50) "></span>
+            </p>
+            <span style="font-weight: 400;" [innerHTML]="product.price_html"></span>
+          </ion-card>
+
+        </ion-slide>
+      </ion-slides>
+
+    </ion-row>
+  </ion-grid>
+
+
+
+
+
+
+  <ion-grid *ngIf="featured" class="block featured">
+    <ion-row>
+
+      <ion-col col-12>
+        <p class="title">Featured</p>
+      </ion-col>
+
+      <ion-col col-6 *ngFor="let Feature of featured">
+
+        <ion-card (click)="productDetails(Feature)">
+          <img *ngIf="Feature.images" src="{{Feature.images['0'].src}}" alt="" srcset="">
+          <ion-card-content>
+            <h2><b>{{Feature.name}}</b></h2>
+            <p [innerHTML]="short_description"></p>
+            <p>{{stock_status}}</p>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+
+
+
+
+  <ion-grid *ngIf="onSale" class="block onSale">
+
+    <ion-row>
+
+      <ion-col col-12>
+        <p class="title">On Sale</p>
+      </ion-col>
+
+      <ion-col col-6 *ngFor="let sale of onSale">
+
+        <ion-card (click)="productDetails(sale)">
+          <img *ngIf="sale.images" src="{{sale.images['0'].src}}" alt="" srcset="">
+          <ion-card-content>
+            <p>{{sale.name}}</p>
+            <p [innerHTML]="sale.price_html"></p>
+            <p>{{stock_status}}</p>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+
+
+  <ion-list class="block products">
+
+    <p class="title">Products</p>
+    <ion-item *ngFor="let product of moreProducts" text-wrap>
+      <ion-thumbnail item-left *ngIf="product.images.length > 0">
+        <img src="{{product.images['0'].src}}" alt="" srcset="">
+      </ion-thumbnail>
+      <ion-thumbnail item-left *ngIf="product.images.length == 0">
+        <img src="./assets/images/icons8-no-camera-100.png" alt="" srcset="" />
+      </ion-thumbnail>
+      <h2>{{product.name}}</h2>
+      <p>
+        <span [innerHTML]="product.description.substr(0,50) + '...' "></span>
+        <span [innerHTML]="product.price_html"></span>
+      </p>
+      <button ion-button icon item-right clear (click)="productDetails(product)">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="loadProducts($event)">
+    <ion-infinite-scroll-content>
+
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

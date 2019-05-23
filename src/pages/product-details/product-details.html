@@ -1,0 +1,145 @@
+<!--
+  Generated template for the ProductDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="light">
+    <ion-title>{{product.name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openCart()">
+        <ion-icon name="cart"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+
+</ion-header>
+
+
+<ion-content no-padding>
+
+
+
+  <ion-card no-padding>
+    <ion-slides autoplay="3000" pager>
+
+      <ion-slide *ngFor="let img of product.images">
+        <img src="{{img.src}}" alt="" srcset="">
+      </ion-slide>
+    </ion-slides>
+    <ion-card-header style="text-align:start;">
+      <p>
+        {{product.name}} &nbsp;&nbsp;&nbsp;&nbsp;
+        <ion-chip *ngFor="let cat of product.categories" style="margin-left:5px;">
+          <ion-label color="primary">{{cat.name}}</ion-label>
+        </ion-chip>
+        <ion-chip style="margin-left:5px;">
+          <ion-label color="primary">{{product.slug}}</ion-label>
+        </ion-chip>
+      </p>
+      <p [innerHTML]="product.price_html"></p>
+      <h2 color="secondary"></h2>
+
+    </ion-card-header>
+    <hr>
+    <ion-card-content style="text-align:start;">
+      <p [innerHTML]="product.short_description" text-wrap></p>
+      <button ion-button icon-left outline block color="primary" (click)="addToCart(product)">
+        <ion-icon name="basket"></ion-icon> Add to Cart For {{product.price}} .Rs
+      </button>
+      <button ion-button icon-left block color="danger" (click)="AddToFav(product)">
+        <ion-icon name="heart"></ion-icon> Add to Favorites
+      </button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-segment [(ngModel)]="tab">
+    <ion-segment-button value="Specifications" (click)="menuTabs('Specifications')">
+      Specifications
+    </ion-segment-button>
+    <ion-segment-button value="Reviews" (click)="menuTabs('Reviews')">
+      Reviews
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="menu">
+
+    <ion-card *ngSwitchCase="'Specifications'" style="text-align:start;" no-padding>
+      <ion-card-header><b>Specifications</b></ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row *ngFor="let att of product.attributes">
+            <ion-col col-4>{{att.name}}</ion-col>
+            <ion-col col-8>
+              <ion-select placeholder="Select">
+                <ion-option value="{{option}}" (blur)="tab(option)" *ngFor="let option of att.options">{{option}}</ion-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-4>
+              <h2><b>Dimensions</b></h2>
+            </ion-col>
+            <ion-col col-8></ion-col>
+            <ion-col col-4></ion-col>
+            <ion-col col-8>
+              <p><b>Height: </b>{{product.dimensions.height}}</p>
+              <p><b>Width: </b>{{product.dimensions.width}}</p>
+              <p><b>Length: </b>{{product.dimensions.length}}</p>
+              <p><b>Weight: </b>{{product.weight}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngSwitchCase="'Reviews'" style="text-align:start;" no-padding>
+      <ion-card-header>Reviews</ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row *ngFor="let review of reviews">
+            <ion-thumbnail>
+              <img src="{{review.reviewer_avatar_urls[24]}}" alt="" srcset="">
+            </ion-thumbnail>
+            <ion-col col-4><b>{{review.reviewer}}</b><br>
+              <span *ngIf="review.rating >=1">
+                <ion-icon style="color:#d4af34;" small name="star"></ion-icon>
+              </span>
+              <span *ngIf="review.rating >=2">
+                <ion-icon style="color:#d4af34;" small name="star"></ion-icon>
+              </span>
+              <span *ngIf="review.rating >=3">
+                <ion-icon style="color:#d4af34;" small name="star"></ion-icon>
+              </span>
+              <span *ngIf="review.rating >=4">
+                <ion-icon style="color:#d4af34;" small name="star"></ion-icon>
+              </span>
+              <span *ngIf="review.rating >=5">
+                <ion-icon style="color:#d4af34;" small name="star"></ion-icon>
+              </span>
+            </ion-col>
+            <ion-col col-8 [innerHTML]="review.review"> </ion-col>
+          </ion-row>
+
+          <ion-label color="primary"> Write Reveiw ...</ion-label>
+          <ion-textarea type="text" maxlength="80" placeholder="Write here ..... "></ion-textarea>
+          <button ion-button>
+            Share
+          </button>
+
+
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
+</ion-content>
+
+<!-- <ion-footer>
+  <button ion-button icon-left block color="primary" (click)="addToCart(product)">
+    <ion-icon name="basket"></ion-icon> Add to Cart For {{product.price}} .Rs
+  </button>
+</ion-footer> -->

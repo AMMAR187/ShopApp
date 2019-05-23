@@ -1,0 +1,145 @@
+<!--
+  Generated template for the CheckoutPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="light">
+    <ion-title>checkout</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+    <ion-item-divider color="danger">Personal Details</ion-item-divider>
+
+    <ion-item>
+      <ion-label floating>First Name</ion-label>
+      <ion-input type="text" [(ngModel)]="newOrder.first_name" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Last Name</ion-label>
+      <ion-input type="text" [(ngModel)]="newOrder.last_name" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="email" readonly [(ngModel)]="newOrder.email" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Username</ion-label>
+      <ion-input type="text" readonly [(ngModel)]="newOrder.username" required></ion-input>
+    </ion-item>
+
+
+
+    <ion-item-divider color="danger">Billing Details</ion-item-divider>
+
+    <ion-item>
+      <ion-label floating>Address Line 1</ion-label>
+      <ion-textarea type="text" maxlength="80" [(ngModel)]="newOrder.billing.address_1"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Address Line 2</ion-label>
+      <ion-textarea type="text" maxlength="80" [(ngModel)]="newOrder.billing.address_2"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Country</ion-label>
+      <ion-select [(ngModel)]="newOrder.billing.country" required>
+        <ion-option value="Saudi Arabia" selected="true">Saudi Arabia</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>State</ion-label>
+      <ion-select [(ngModel)]="newOrder.billing.state" required>
+        <ion-option value="Saudi Arabia" selected="true">Al-Riyadh</ion-option>
+        <ion-option value="Mekkah">Mekkah</ion-option>
+        <ion-option value="Al-Dammam">Al-Dammam</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>City</ion-label>
+      <ion-input type="text" [(ngModel)]="newOrder.billing.city" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating required>Postal Code</ion-label>
+      <ion-input type="number" [(ngModel)]="newOrder.billing.postcode"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating required>Phone</ion-label>
+      <ion-input type="tel" [(ngModel)]="newOrder.billing.phone" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Same Shipping Details</ion-label>
+      <ion-checkbox (ionChange)="setBillingToShipping()"></ion-checkbox>
+    </ion-item>
+
+    <ion-item-divider color="danger" *ngIf="!billing_shipping_same">Shipping Details</ion-item-divider>
+
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label floating>Address Line 1</ion-label>
+      <ion-textarea type="text" maxlength="80" [(ngModel)]="newOrder.shipping.address_1" required></ion-textarea>
+    </ion-item>
+
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label floating>Address Line 2</ion-label>
+      <ion-textarea type="text" maxlength="80" [(ngModel)]="newOrder.shipping.address_2"></ion-textarea>
+    </ion-item>
+
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label floating>Country</ion-label>
+      <ion-select [(ngModel)]="newOrder.shipping.country">
+        <ion-option value="Saudi Arabia" selected="true">Saudi Arabia</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label floating>State</ion-label>
+      <ion-select [(ngModel)]="newOrder.shipping.state">
+        <ion-option value="Saudi Arabia" selected="true">Al-Riyadh</ion-option>
+        <ion-option value="Mekkah">Mekkah</ion-option>
+        <ion-option value="Al-Dammam">Al-Dammam</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label floating>City</ion-label>
+      <ion-input type="text" [(ngModel)]="newOrder.shipping.city"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label floating>Postal Code</ion-label>
+      <ion-input type="number" [(ngModel)]="newOrder.shipping.postcode"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="!billing_shipping_same">
+      <ion-label floating>Phone</ion-label>
+      <ion-input type="tel" [(ngModel)]="newOrder.shipping.phone"></ion-input>
+    </ion-item>
+
+    <ion-item-divider color="danger">Payment Method</ion-item-divider>
+    <ion-item>
+      <ion-label>Payment Method</ion-label>
+      <ion-select [(ngModel)]="paymentMethod" required>
+        <ion-option *ngFor="let p of paymentMethods" value="{{p.method_id}}">{{p.method_title}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+<ion-footer>
+  <button ion-button block color="danger" (click)="placeOrder()">Place Order</button>
+</ion-footer>

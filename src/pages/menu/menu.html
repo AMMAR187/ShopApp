@@ -1,0 +1,53 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar color="light">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+
+    <ion-card>
+      <img src="./assets/images/menu-title.jpeg" alt="" srcset="">
+      <div class="card-title">Shop App</div>
+      <div class="card-subtitle">Keep Shopping</div>
+    </ion-card>
+    <ion-list>
+
+
+      <ion-item-divider color="danger">Account</ion-item-divider>
+      <ion-item menuClose (click)="openPage('SignupPage')" *ngIf="!loggedIn">
+        <ion-icon name="md-clipboard" item-left large></ion-icon>
+        <h2>Sign Up</h2>
+        <p>For a New Account</p>
+      </ion-item>
+      <ion-item menuClose (click)="openPage('LoginPage')" *ngIf="!loggedIn">
+        <ion-icon name="log-in" item-left large></ion-icon>
+        <h2>Login</h2>
+        <p>Using email and password</p>
+      </ion-item>
+
+      <ion-item menuClose *ngIf="loggedIn">
+        <ion-icon name="contact" item-left large></ion-icon>
+        <h2>{{ (this.user.firstname == ''? this.user.username : this.user.firstname) || ""}}</h2>
+        <p>Welcome</p>
+      </ion-item>
+      <ion-item (click)="openPage('Cart')" menuClose *ngIf="loggedIn">
+        <ion-icon name="cart" item-left large></ion-icon>
+        <h2>Cart</h2>
+        <p>Check Items In Your Cart</p>
+      </ion-item>
+      <ion-item (click)="openPage('Logout')" menuClose *ngIf="loggedIn">
+        <ion-icon name="log-out" item-left large></ion-icon>
+        <h2>Logout</h2>
+        <p>of Your Account</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+
+<ion-nav #content [root]="homePage">
+
+</ion-nav>

@@ -1,0 +1,12 @@
+{
+  "name": "shop_App",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+
+  "proxies": [{
+    "path": "/api",
+    "proxyUrl": "https://ammar187.000webhostapp.com/"
+  }]
+}

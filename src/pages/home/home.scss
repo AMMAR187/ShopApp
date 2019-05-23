@@ -1,0 +1,36 @@
+page-home {
+  ion-card {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+
+
+  .title {
+    font-size: 50px;
+    font-weight: 800;
+    color: white;
+  }
+
+  .block {
+    padding: 10px;
+  }
+
+  .cat {
+    .title {
+      color: black;
+    }
+  }
+
+  .featured {
+    background-image: linear-gradient(to left, rgba(255, 0, 242, 0.041), rgb(0, 119, 255));
+  }
+
+  .onSale {
+    background-image: linear-gradient(to left, rgba(255, 0, 242, 0.041), rgb(255, 0, 242));
+  }
+
+  .products {
+    background-image: linear-gradient(to left, rgba(255, 0, 242, 0.041), rgba(111, 122, 7, 0.836));
+  }
+}
